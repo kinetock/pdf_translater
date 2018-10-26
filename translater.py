@@ -3,6 +3,7 @@ import pyperclip
 import re
 import requests
 
+
 class Application(ttk.Frame):
 	def __init__(self, root=None):
 		super().__init__(root)
