@@ -44,7 +44,7 @@ class Application(ttk.Frame):
 		trans_form = '&source=' + self.source + '&target=' + self.target
 		r = requests.get(self.url + 'text=' + self.clip_text['text'] + trans_form)
 		self.translated_text['text'] = r.text
-		pyperclip.copy(r.text)
+		pyperclip.copy(r.text + '\n' + self.clip_text['text'])
 
 	def _reshape(self):
 		self.reshape_text()
@@ -52,7 +52,7 @@ class Application(ttk.Frame):
 		pyperclip.copy(self.clip_text['text'])
 
 	def reshape_text(self):
-		dic = {'\r\n': ' ', 'i.e.':'i.e', '- ': '', '. ': '.\n', ':':' :'}
+		dic = {'\r\n': ' ', 'i.e.':'i.e', 'e.g.':'e.g', '&':'and', 'al.':'al', 'vs.':'vs', 'Sec. ':'Sec.', 'Eq. ':'Eq.', '- ':'', '. . . ':'__', '. ':'.\n', ': ':':\n', '; ':';\n'}
 		self.clip_text['text'] = pyperclip.paste()
 		for key, value in dic.items():
 			self.clip_text['text'] = self.clip_text['text'].replace(key, value)
