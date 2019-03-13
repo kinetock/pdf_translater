@@ -34,6 +34,10 @@ class Application(ttk.Frame):
 		self.clip_copy.pack(side='left')
 		self.exchange_trans = ttk.Button(self.menu, text="exchange", command=self._exchange_translate)
 		self.exchange_trans.pack(side='left')
+		self.hold_clip = ttk.Button(self.menu, text="hold", command=self._hold_clip)
+		self.hold_clip.pack(side='left')
+		self.hold_trans = ttk.Button(self.menu, text="hold trans", command=self._hold_trans)
+		self.hold_trans.pack(side='left')
 
 		self.url = 'https://script.google.com/macros/s/AKfycbxi1zPNMqxs3vtiBKloLnINiAyz6BHaHla3bC_LTVh5X6mirAPP/exec?'
 		self.source = 'en'
@@ -52,7 +56,7 @@ class Application(ttk.Frame):
 		pyperclip.copy(self.clip_text['text'])
 
 	def reshape_text(self):
-		dic = {'\r\n': ' ', 'i.e.':'i.e', 'e.g.':'e.g', '&':'and', 'al.':'al', 'vs.':'vs', 'Sec. ':'Sec.', 'Eq. ':'Eq.', '- ':'', '. . . ':'__', '. ':'.\n', ': ':':\n', '; ':';\n'}
+		dic = {'\r\n': ' ', 'i.e.':'i.e', 'e.g.':'e.g', '&':'and', 'al.':'al', 'vs.':'vs', 'Sec. ':'Sec.', 'Eq. ':'Eq.', '- ':'', '. . . ':'__', '. ':'.\n', ': ':':\n'}
 		self.clip_text['text'] = pyperclip.paste()
 		for key, value in dic.items():
 			self.clip_text['text'] = self.clip_text['text'].replace(key, value)
@@ -68,9 +72,16 @@ class Application(ttk.Frame):
 		self.source = self.target
 		self.target = tmp
 
+	def _hold_clip(self):
+		self.clip_text['text'] = pyperclip.paste()
+
+	def _hold_trans(self):
+		pyperclip.copy(self.clip_text['text'] + ' ' + pyperclip.paste())
+		self._translate()
+
 if __name__ == "__main__":
 	root = Tk()
 	root.title("Clip Translater")
-	root.geometry("640x480")
+	root.geometry("960x640")
 	app = Application(root)
 	app.mainloop()
