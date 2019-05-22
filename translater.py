@@ -56,7 +56,7 @@ class Application(ttk.Frame):
 		pyperclip.copy(self.clip_text['text'])
 
 	def reshape_text(self):
-		dic = {'\r\n': ' ', 'i.e.':'i.e', 'e.g.':'e.g', '&':'and', 'al.':'al', 'vs.':'vs', 'Sec. ':'Sec.', 'Eq. ':'Eq.', '- ':'', '. . . ':'__', '. ':'.\n', ': ':':\n'}
+		dic = {'\r\n': ' ', 'i.e.':'i.e', 'e.g.':'e.g', '&':'and', 'al.':'al', 'vs.':'vs', 'Sec. ':'Sec.', 'Eq. ':'Eq.', '- ':'', '. . . ':'__', '. ':'.\n', ': ':':\n', '%':'percents'}
 		self.clip_text['text'] = pyperclip.paste()
 		for key, value in dic.items():
 			self.clip_text['text'] = self.clip_text['text'].replace(key, value)
